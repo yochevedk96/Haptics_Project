@@ -1,0 +1,16 @@
+#include <Arduino.h>
+
+struct LetterMapping {
+  char letter;
+  int values[6];
+};
+
+class LetterDictionary {
+  public:
+    LetterDictionary();
+    int* getValuesForLetter(char input);
+  private:
+    static const int NUM_LETTERS = 26;
+    LetterMapping dictionary[NUM_LETTERS];
+    void initDictionary();
+  };
