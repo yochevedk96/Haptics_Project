@@ -32,6 +32,7 @@ void LetterDictionary::initDictionary() {
   dictionary[23] = { 'X', {1, 1, 0, 0, 1, 1} };
   dictionary[24] = { 'Y', {1, 1, 0, 1, 1, 1} };
   dictionary[25] = { 'Z', {1, 0, 0, 1, 1, 1} };
+  dictionary[26] = { ' ', {0, 0, 0, 0, 0, 0} };
   
 }
 
