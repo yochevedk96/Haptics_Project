@@ -1,5 +1,7 @@
 #include "letter_dictionary.h"
 
+const int motorPins[6] = {_, _, _, _, _, _};
+
 LetterDictionary dict;
 String new_string = "hello";
 char charArray[20];
@@ -7,6 +9,12 @@ char charArray[20];
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+
+  for (int i = 0; i < 6; i++) {
+    pinMode(motorPins[i], OUTPUT);
+    digitalWrite(motorPins[i], LOW);  // all motors start off
+  }
+
   while(!Serial){
     ;
   }
@@ -43,6 +51,17 @@ void loop() {
     }
     
     //TODO command to motors
+    for (int j = 0; j < 6; j++) {
+      if (values[j] == 1) {
+        digitalWrite(motorPins[j], HIGH);
+      }
+    }
+
+    delay(2000);
+
+    for (int j = 0; j < 6; j++) {
+      digitalWrite(motorPins[j], LOW);
+    }
     
   }
   
