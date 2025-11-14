@@ -33,6 +33,7 @@ void LetterDictionary::initDictionary() {
   dictionary[24] = { 'Y', {1, 1, 0, 1, 1, 1} };
   dictionary[25] = { 'Z', {1, 0, 0, 1, 1, 1} };
   dictionary[26] = { ' ', {0, 0, 0, 0, 0, 0} };
+  dictionary[27] = [ '#', {0, 1, 0, 1, 1, 1} };
   
 }
 
@@ -43,4 +44,10 @@ int* LetterDictionary::getValuesForLetter(char input) {
     }
   }
   return nullptr;
+}
+
+int* LetterDictionary::getValuesForDigit(int digit) {
+    if (digit == 0) return getValuesForLetter('J');
+    if (digit >= 1 && digit <= 9) return getValuesForLetter('A' + (digit - 1));
+    return nullptr;
 }

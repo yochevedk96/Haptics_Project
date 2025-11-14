@@ -9,6 +9,7 @@ class LetterDictionary {
   public:
     LetterDictionary();
     int* getValuesForLetter(char input);
+    int* getValuesForDigit(int digit);
   private:
     static const int NUM_LETTERS = 27;
     LetterMapping dictionary[NUM_LETTERS];

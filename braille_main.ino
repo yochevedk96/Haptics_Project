@@ -1,6 +1,10 @@
 #include "letter_dictionary.h"
 
-const int motorPins[6] = {_, _, _, _, _, _};
+const int dirPins[6]  = {2, 3, 4, 5, 6, 7};
+const int stepPins[6] = {8, 9, 10, 11, 12, 13};
+
+int stepsPerRevolution = 2000; // Typical for 1.8° motors
+const int stepDelay = 500;         // Microseconds between steps (speed control)
 
 LetterDictionary dict;
 String new_string = "hello";
@@ -11,8 +15,10 @@ void setup() {
   Serial.begin(9600);
 
   for (int i = 0; i < 6; i++) {
-    pinMode(motorPins[i], OUTPUT);
-    digitalWrite(motorPins[i], LOW);  // all motors start off
+    pinMode(dirPins[i], OUTPUT);
+    pinMode(stepPins[i], OUTPUT);
+    digitalWrite(stepPins[i], LOW);
+    digitalWrite(dirPins[i], LOW);
   }
 
   while(!Serial){
@@ -53,18 +59,30 @@ void loop() {
     //TODO command to motors
     for (int j = 0; j < 6; j++) {
       if (values[j] == 1) {
-        digitalWrite(motorPins[j], HIGH);
+        moveMotor(j, HIGH, stepsPerRevolution);
+      }
+      else {
+        moveMotor(j, LOW, stepsPerRevolution);
       }
     }
 
     delay(2000);
-
-    for (int j = 0; j < 6; j++) {
-      digitalWrite(motorPins[j], LOW);
-    }
     
   }
   
   // put your main code here, to run repeatedly:
 
+}
+
+
+void moveMotor(int motorIndex, bool direction, int steps)
+{
+  digitalWrite(dirPins[motorIndex], direction);
+
+  for (int i = 0; i < steps; i++) {
+    digitalWrite(stepPins[motorIndex], HIGH);
+    delayMicroseconds(stepDelay);
+    digitalWrite(stepPins[motorIndex], LOW);
+    delayMicroseconds(stepDelay);
+  }
 }
