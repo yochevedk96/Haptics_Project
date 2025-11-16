@@ -6,38 +6,44 @@ LetterDictionary::LetterDictionary() {
 
 void LetterDictionary::initDictionary() {
   
-  dictionary[0] = { 'A', {1, 0, 0, 0, 0, 0} };
-  dictionary[1] = { 'B', {1, 0, 1, 0, 0, 0} };
-  dictionary[2] = { 'C', {1, 1, 0, 0, 0, 0} };
-  dictionary[3] = { 'D', {1, 1, 0, 1, 0, 0} };
-  dictionary[4] = { 'E', {1, 0, 0, 1, 0, 0} };
-  dictionary[5] = { 'F', {1, 1, 1, 0, 0, 0} };
-  dictionary[6] = { 'G', {1, 1, 1, 1, 0, 0} };
-  dictionary[7] = { 'H', {1, 0, 1, 1, 0, 0} };
-  dictionary[8] = { 'I', {0, 1, 1, 0, 0, 0} };
-  dictionary[9] = { 'J', {0, 1, 1, 1, 0, 0} };
-  dictionary[10] = { 'K', {1, 0, 0, 0, 1, 0} };
-  dictionary[11] = { 'L', {1, 0, 1, 0, 1, 0} };
-  dictionary[12] = { 'M', {1, 1, 0, 0, 1, 0} };
-  dictionary[13] = { 'N', {1, 1, 0, 1, 1, 0} };
-  dictionary[14] = { 'O', {1, 0, 0, 1, 1, 0} };
-  dictionary[15] = { 'P', {1, 1, 1, 0, 1, 0} };
-  dictionary[16] = { 'Q', {1, 1, 1, 1, 1, 0} };
-  dictionary[17] = { 'R', {1, 0, 1, 1, 1, 0} };
-  dictionary[18] = { 'S', {0, 1, 1, 0, 1, 0} };
-  dictionary[19] = { 'T', {0, 1, 1, 1, 1, 0} };
-  dictionary[20] = { 'U', {1, 0, 0, 0, 0, 1} };
-  dictionary[21] = { 'V', {1, 0, 1, 0, 1, 1} };
-  dictionary[22] = { 'W', {0, 1, 1, 1, 0, 1} };
-  dictionary[23] = { 'X', {1, 1, 0, 0, 1, 1} };
-  dictionary[24] = { 'Y', {1, 1, 0, 1, 1, 1} };
-  dictionary[25] = { 'Z', {1, 0, 0, 1, 1, 1} };
-  dictionary[26] = { ' ', {0, 0, 0, 0, 0, 0} };
-  dictionary[27] = [ '#', {0, 1, 0, 1, 1, 1} };
+  dictionary[0] = { 'A', {'u', 'd', 'd', 'd', 'd', 'd'} };
+  dictionary[1] = { 'B', {'u', 'd', 'u', 'd', 'd', 'd'} };
+  dictionary[2] = { 'C', {'u', 'u', 'd', 'd', 'd', 'd'} };
+  dictionary[3] = { 'D', {'u', 'u', 'd', 'u', 'd', 'd'} };
+  dictionary[4] = { 'E', {'u', 'd', 'd', 'u', 'd', 'd'} };
+  dictionary[5] = { 'F', {'u', 'u', 'u', 'd', 'd', 'd'} };
+  dictionary[6] = { 'G', {'u', 'u', 'u', 'u', 'd', 'd'} };
+  dictionary[7] = { 'H', {'u', 'd', 'u', 'u', 'd', 'd'} };
+  dictionary[8] = { 'I', {'d', 'u', 'u', 'd', 'd', 'd'} };
+  dictionary[9] = { 'J', {'d', 'u', 'u', 'u', 'd', 'd'} };
+  dictionary[10] = { 'K', {'u', 'd', 'd', 'd', 'u', 'd'} };
+  dictionary[11] = { 'L', {'u', 'd', 'u', 'd', 'u', 'd'} };
+  dictionary[12] = { 'M', {'u', 'u', 'd', 'd', 'u', 'd'} };
+  dictionary[13] = { 'N', {'u', 'u', 'd', 'u', 'u', 'd'} };
+  dictionary[14] = { 'O', {'u', 'd', 'd', 'u', 'u', 'd'} };
+  dictionary[15] = { 'P', {'u', 'u', 'u', 'd', 'u', 'd'} };
+  dictionary[16] = { 'Q', {'u', 'u', 'u', 'u', 'u', 'd'} };
+  dictionary[17] = { 'R', {'u', 'd', 'u', 'u', 'u', 'd'} };
+  dictionary[18] = { 'S', {'d', 'u', 'u', 'd', 'u', 'd'} };
+  dictionary[19] = { 'T', {'d', 'u', 'u', 'u', 'u', 'd'} };
+  dictionary[20] = { 'U', {'u', 'd', 'd', 'd', 'd', 'u'} };
+  dictionary[21] = { 'V', {'u', 'd', 'u', 'd', 'u', 'u'} };
+  dictionary[22] = { 'W', {'d', 'u', 'u', 'u', 'd', 'u'} };
+  dictionary[23] = { 'X', {'u', 'u', 'd', 'd', 'u', 'u'} };
+  dictionary[24] = { 'Y', {'u', 'u', 'd', 'u', 'u', 'u'} };
+  dictionary[25] = { 'Z', {'u', 'd', 'd', 'u', 'u', 'u'} };
+  dictionary[26] = { ' ', {'d', 'd', 'd', 'd', 'd', 'd'} };
+  dictionary[27] = { ',', {'d', 'd', 'u', 'd', 'd', 'd'} };
+  dictionary[28] = { '.', {'d', 'd', 'u', 'u', 'd', 'u'} };
+  dictionary[29] = { '?', {'d', 'd', 'u', 'd', 'u', 'u'} };
+  dictionary[30] = { '!', {'d', 'd', 'u', 'u', 'u', 'd'} };
+  dictionary[31] = { ';', {'d', 'd', 'u', 'd', 'u', 'd'} };
+  dictionary[32] = { ':', {'d', 'd', 'u', 'u', 'd', 'd'} };
+  dictionary[33] = [ '#', {'d', 'u', 'd', 'u', 'u', 'u'} };
   
 }
 
-int* LetterDictionary::getValuesForLetter(char input) {
+char* LetterDictionary::getValuesForLetter(char input) {
   for (int i = 0; i < NUM_LETTERS; i++) {
     if (dictionary[i].letter == input) {
       return dictionary[i].values;
@@ -46,8 +52,8 @@ int* LetterDictionary::getValuesForLetter(char input) {
   return nullptr;
 }
 
-int* LetterDictionary::getValuesForDigit(int digit) {
+/*char* LetterDictionary::getValuesForDigit(int digit) {
     if (digit == 0) return getValuesForLetter('J');
     if (digit >= 1 && digit <= 9) return getValuesForLetter('A' + (digit - 1));
     return nullptr;
-}
+}*/
