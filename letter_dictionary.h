@@ -11,7 +11,7 @@ class LetterDictionary {
     char* getValuesForLetter(char input);
     //char* getValuesForDigit(int digit);
   private:
-    static const int NUM_LETTERS = 34;
+    static const int NUM_LETTERS = 35;
     LetterMapping dictionary[NUM_LETTERS];
     void initDictionary();
   };
