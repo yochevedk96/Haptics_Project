@@ -39,8 +39,8 @@ void LetterDictionary::initDictionary() {
   dictionary[30] = { '!', {'d', 'd', 'u', 'u', 'u', 'd'} };
   dictionary[31] = { ';', {'d', 'd', 'u', 'd', 'u', 'd'} };
   dictionary[32] = { ':', {'d', 'd', 'u', 'u', 'd', 'd'} };
-  dictionary[33] = [ '#', {'d', 'u', 'd', 'u', 'u', 'u'} };
-  
+  dictionary[33] = { '#', {'d', 'u', 'd', 'u', 'u', 'u'} };
+  dictionary[34] = { '\'', {'d', 'd', 'd', 'd', 'u', 'd'} };
 }
 
 char* LetterDictionary::getValuesForLetter(char input) {
