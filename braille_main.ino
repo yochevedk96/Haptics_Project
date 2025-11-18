@@ -9,13 +9,17 @@ int stepsPerRevolution = 2000; // Typical for 1.8° motors
 const int stepDelay = 500;         // Microseconds between steps (speed control)
 
 LetterDictionary dict;
-String new_string = "hello";
+String new_string = "you've got braille!";
 char charArray[20];
+int buttonState = 0; 
+int letter = 0;
+const int buttonPin = A1;     // the number of the pushbutton pin
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-
+ 
+  pinMode(buttonPin, INPUT_PULLUP);
   for (int i = 0; i < 6; i++) {
     pinMode(dirPins[i], OUTPUT);
     pinMode(stepPins[i], OUTPUT);
@@ -23,61 +27,64 @@ void setup() {
     digitalWrite(dirPins[i], LOW);
   }
 
-  while(!Serial){
-    ;
-  }
-  
-  Serial.println("Please enter a word to convert to braille and hit ENTER");
-
-  while (new_string.length() == 0) {
-    if (Serial.available()) {}
-      new_string = Serial.readStringUntil('\n');
-      new_string.trim();
-      new_string.toUpperCase();
-      new_string.toCharArray(charArray, new_string.length() + 1);
-      Serial.print("Converting to braille the word: ");
-      Serial.println(new_string);
-  }
+  new_string.toUpperCase();
+  new_string.toCharArray(charArray, new_string.length() + 1);
+  Serial.print("Converting to braille the word: ");
+  Serial.println(new_string);
+//
+//  while(!Serial){
+//    ;
+//  }
+//  
+//  Serial.println("Please enter a word to convert to braille and hit ENTER");
+//
+//  while (new_string.length() == 0) {
+//    if (Serial.available()) {}
+//      new_string = Serial.readStringUntil('\n');
+//      new_string.trim();
+//      new_string.toUpperCase();
+//      new_string.toCharArray(charArray, new_string.length() + 1);
+//      Serial.print("Converting to braille the word: ");
+//      Serial.println(new_string);
+//  }
 
 }
 
 void loop() {
-  for (int i = 0; i < new_string.length(); i++)
-  { 
-    //TODO wait for button press
-    
-    char letter = charArray[i];
-    char* values = dict.getValuesForLetter(letter);
 
-    if (values != nullptr) {
-      Serial.print("Commanding motors for the letter: ")
-      Serial.println(letter);
+  buttonState = digitalRead(buttonPin);
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (buttonState == HIGH) {
+    // turn LED on:
+    //Serial.println("Button is Low, do nothing");
+  } else {
+    if (letter+1 == new_string.length()) {
+      Serial.println("Sring is finished, starting from the beggining");
+      resetAllPinsToDown();
+      letter = 0;
+    }
+  
+    Serial.println("Button is Pressed: ");
+    //THIS IS WHERE OUR CODE BEGINS
+    //get the next letter in the array
+    char this_letter = charArray[letter];
+    char* values = dict.getValuesForLetter(this_letter);
+
+   if (values != nullptr) {
+      Serial.print("Commanding motors for the letter: ");
+      Serial.println(this_letter);
     } else {
       Serial.print(" :( No value for character: ");
-      Serial.println(letter);
+      Serial.println(this_letter);
     }
     
-    //TODO command to motors
-
-    /*for (int j = 0; j < 6; j++) {
-      if (state[j] == 'u' && values[j] == 'd') {
-        moveMotor(j, 'd', stepsPerRevolution);
-        state[j] = 'd';
-      }
-      else if (state[j] == 'd' && values[j] == 'u') {
-        moveMotor(j, 'u', stepsPerRevolution);
-        state[j] = 'u';
-      }
-      else {
-        continue;
-      }
-    }*/
-
+    //program the next letter
     moveAllMotorsTogether(values, stepsPerRevolution);
     
+    letter++;
+    
   }
-  
-  resetAllPinsToDown();
 
 }
 
@@ -123,9 +130,9 @@ void moveAllMotorsTogether(char target[6], int steps)
 }
 
 
-/*void moveMotor(int motorIndex, char direction, int steps)
+void moveMotor(int motorIndex, char direction, int steps)
 {
-  int dirSignal = (direction == 'u') ? HIGH : LOW
+  int dirSignal = (direction == 'u') ? HIGH : LOW;
   
   digitalWrite(dirPins[motorIndex], dirSignal);
 
@@ -135,7 +142,7 @@ void moveAllMotorsTogether(char target[6], int steps)
     digitalWrite(stepPins[motorIndex], LOW);
     delayMicroseconds(stepDelay);
   }
-}*/
+}
 
 
 void resetAllPinsToDown()
