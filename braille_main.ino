@@ -1,8 +1,8 @@
 #include "letter_dictionary.h"
 
-const int dirPins[6]  = {2, 3, 4, 5, 6, 7};
-const int stepPins[6] = {8, 9, 10, 11, 12, 13};
-
+const int dirPins[6]  = {13, 11, 9, 7, 5, 3};
+const int stepPins[6] = {12, 10, 8, 6, 4, 2};
+const int enPins[6] = {A0, A0, A5, A4, A3, A2};
 char state[6] = {'d', 'd', 'd', 'd', 'd', 'd'};
 
 int stepsPerRevolution = 2000; // Typical for 1.8° motors
@@ -22,31 +22,27 @@ void setup() {
   pinMode(buttonPin, INPUT_PULLUP);
   for (int i = 0; i < 6; i++) {
     pinMode(dirPins[i], OUTPUT);
+    pinMode(enPins[i], OUTPUT);
     pinMode(stepPins[i], OUTPUT);
     digitalWrite(stepPins[i], LOW);
+    digitalWrite(enPins[i], HIGH);
     digitalWrite(dirPins[i], LOW);
   }
+  Serial.println("Commanding all motors up for calibration");
+  char up[6] = {'u', 'u', 'u', 'u', 'u', 'u'};
+  moveAllMotorsTogether(up, stepsPerRevolution);
+  Serial.println("Commanding all down for calibration");
+  char down[6] = {'d', 'd', 'd', 'd', 'd', 'd'};
+  moveAllMotorsTogether(down, stepsPerRevolution);
 
   new_string.toUpperCase();
   new_string.toCharArray(charArray, new_string.length() + 1);
   Serial.print("Converting to braille the word: ");
   Serial.println(new_string);
-//
-//  while(!Serial){
-//    ;
-//  }
-//  
-//  Serial.println("Please enter a word to convert to braille and hit ENTER");
-//
-//  while (new_string.length() == 0) {
-//    if (Serial.available()) {}
-//      new_string = Serial.readStringUntil('\n');
-//      new_string.trim();
-//      new_string.toUpperCase();
-//      new_string.toCharArray(charArray, new_string.length() + 1);
-//      Serial.print("Converting to braille the word: ");
-//      Serial.println(new_string);
-//  }
+ 
+      for (int i = 0; i < 6; i++) {
+      Serial.print(state[i]);
+    }
 
 }
 
@@ -61,7 +57,8 @@ void loop() {
   } else {
     if (letter+1 == new_string.length()) {
       Serial.println("Sring is finished, starting from the beggining");
-      resetAllPinsToDown();
+      char down[6] = {'d', 'd', 'd', 'd', 'd', 'd'};
+      moveAllMotorsTogether(down, stepsPerRevolution);
       letter = 0;
     }
   
@@ -81,7 +78,12 @@ void loop() {
     
     //program the next letter
     moveAllMotorsTogether(values, stepsPerRevolution);
-    
+    Serial.println();
+    for (int i = 0; i < 6; i++) {
+      digitalWrite(enPins[i], HIGH);
+      Serial.print(state[i]);
+    }
+    Serial.println();
     letter++;
     
   }
@@ -91,10 +93,17 @@ void loop() {
 
 void moveAllMotorsTogether(char target[6], int steps)
 {
+  int dirSignal;
   // set direction on each motor
   for (int i = 0; i < 6; i++) {
     if (state[i] != target[i]) {
-      int dirSignal = (target[i] == 'u') ? HIGH : LOW;
+      if (i == 4 || i == 3 || i == 1) {
+        dirSignal = (target[i] == 'u') ? LOW : HIGH;
+      } else {
+        dirSignal = (target[i] == 'u') ? HIGH : LOW;
+      }
+      digitalWrite(enPins[i], LOW);
+      Serial.println(i);
       digitalWrite(dirPins[i], dirSignal);
     }
   }
@@ -127,30 +136,7 @@ void moveAllMotorsTogether(char target[6], int steps)
       state[i] = target[i];
     }
   }
-}
-
-
-void moveMotor(int motorIndex, char direction, int steps)
-{
-  int dirSignal = (direction == 'u') ? HIGH : LOW;
-  
-  digitalWrite(dirPins[motorIndex], dirSignal);
-
-  for (int i = 0; i < steps; i++) {
-    digitalWrite(stepPins[motorIndex], HIGH);
-    delayMicroseconds(stepDelay);
-    digitalWrite(stepPins[motorIndex], LOW);
-    delayMicroseconds(stepDelay);
-  }
-}
-
-
-void resetAllPinsToDown()
-{
-  for (int i = 0; i < 6; i++) {
-    if (state[i] == 'u') {
-      moveMotor(i, 'd', stepsPerRevolution);
-      state[i] = 'd';
+     for (int i = 0; i < 6; i++) {
+      digitalWrite(enPins[i], HIGH);
     }
-  }
 }

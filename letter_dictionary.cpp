@@ -26,7 +26,7 @@ void LetterDictionary::initDictionary() {
   dictionary[17] = { 'R', {'u', 'd', 'u', 'u', 'u', 'd'} };
   dictionary[18] = { 'S', {'d', 'u', 'u', 'd', 'u', 'd'} };
   dictionary[19] = { 'T', {'d', 'u', 'u', 'u', 'u', 'd'} };
-  dictionary[20] = { 'U', {'u', 'd', 'd', 'd', 'd', 'u'} };
+  dictionary[20] = { 'U', {'u', 'd', 'd', 'd', 'u', 'u'} };
   dictionary[21] = { 'V', {'u', 'd', 'u', 'd', 'u', 'u'} };
   dictionary[22] = { 'W', {'d', 'u', 'u', 'u', 'd', 'u'} };
   dictionary[23] = { 'X', {'u', 'u', 'd', 'd', 'u', 'u'} };
